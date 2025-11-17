@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri hijab</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-scarf"></i> Galeri hijab</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#" class="active">Beranda</a></li>
+                    <li><a href="#">Produk</a></li>
+                    <li><a href="#">Kategori</a></li>
+                    <li><a href="#">Tentang Kami</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Cari hijab...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <a href="#" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">3</span>
+                    </a>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=User&background=6e8efb&color=fff" alt="Galeri hijab">
+                        <span>galeri hijab</span>
+                        <div class="dropdown-menu">
+                            <a href="#"><i class="fas fa-user"></i> Profil Saya</a>
+                            <a href="#"><i class="fas fa-shopping-bag"></i> Pesanan Saya</a>
+                            <a href="#"><i class="fas fa-heart"></i> Favorit</a>
+                            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Koleksi Hijab Terbaru Musim Ini</h2>
+                <p>Temukan gaya hijab yang sempurna untuk setiap kesempatan dengan kualitas terbaik dan harga terjangkau
+                </p>
+                <button class="cta-button">Belanja Sekarang</button>
+            </div>
+            <div class="hero-image">
+                <img src="image/aneka-koleksi-hijab-terbaru-hijab-id.jpg" alt="Hijab Model">
+            </div>
+        </div>
+    </section>
+
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Kategori Populer</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-square"></i>
+                    </div>
+                    <h3>Hijab Segi Empat</h3>
+                    <p>Berbagai model dan bahan</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <h3>Hijab Pashmina</h3>
+                    <p>Elegan dan nyaman</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Hijab Instan</h3>
+                    <p>Praktis dan stylish</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Hijab Berpayet</h3>
+                    <p>Untuk acara spesial</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Produk</h2>
+            <div class="product-grid">
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/hijab anak.jpeg" alt="hijab anak 3-1">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hijab anak 3-1</h3>
+                        <p class="product-price">Rp 40.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(128)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <!-- Product Detail Modal -->
+                <div id="productDetailModal" class="product-detail-modal">
+                    <div class="product-detail-content">
+                        <button class="detail-close" id="detailClose">&times;</button>
+                        <div class="detail-image">
+                            <img id="detailImage" src="" alt="Product Image">
+                        </div>
+                        <div class="detail-info">
+                            <h2 id="detailTitle">Product Title</h2>
+                            <p class="detail-price" id="detailPrice">Rp 0</p>
+                            <div class="detail-rating" id="detailRating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(0 reviews)</span>
+                            </div>
+
+                            <div class="detail-description" id="detailDescription">
+                                Product description will appear here...
+                            </div>
+
+                            <div class="detail-specs">
+                                <h4>Spesifikasi Produk:</h4>
+                                <ul class="specs-list" id="detailSpecs">
+                                    <!-- Specifications will be added dynamically -->
+                                </ul>
+                            </div>
+
+                            <div class="quantity-selector">
+                                <label>Jumlah:</label>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" id="quantityDecrease">-</button>
+                                    <span class="quantity-display" id="quantityDisplay">1</span>
+                                    <button class="quantity-btn" id="quantityIncrease">+</button>
+                                </div>
+                            </div>
+
+                            <div class="detail-actions">
+                                <button class="btn-large btn-buy" id="buyNowBtn">Beli Sekarang</button>
+                                <button class="btn-large btn-cart" id="addToCartDetailBtn">Tambah ke Keranjang</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/hijab dagu malay.jpeg" alt="Hijab dagu malay">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hijab dagu malay</h3>
+                        <p class="product-price">Rp 90.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(95)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/segitiga instan jersy.jpeg" alt="hijab segitiga instan jersy">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hijab segitiga instan jersy</h3>
+                        <p class="product-price">Rp 65.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(156)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/segitiga instan jersy.jpeg" alt="hijab segitiga instan jersy">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hijab segitiga instan jersy</h3>
+                        <p class="product-price">Rp 65.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(156)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/bergo maryam.jpeg" alt="hijab bergo maryam">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hijab bergo maryam</h3>
+                        <p class="product-price">Rp 55.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/segitiga paris.jpeg" alt="hijab segitiga paris">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hijab segitiga paris</h3>
+                        <p class="product-price">Rp 55.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/pashmina kaos.jpeg" alt="hijab pasmina kaos">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hijab pashmina kaos</h3>
+                        <p class="product-price">Rp 55.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/pashmina crinkle.jpeg" alt="hijab pashimna crinkle">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <h3>Hijab pashmina crinkle</h3>
+                        <p class="product-price">Rp 55.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/hijab sazi.jpeg" alt="hijab sazi">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hijab sazi</h3>
+                        <p class="product-price">Rp 55.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/ciput pet marsha.jpeg" alt="hijab set mersha">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hijab Ciput pet Marsha Cepol lubang telinga rayon premium</h3>
+                        <p class="product-price">Rp 55.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/gamis set hijab rayon.jpeg" alt="gamis set hijab rayon diamond ori">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>gamis set hijab rayon diamond ori</h3>
+                        <p class="product-price">Rp 55.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/haliza.jpeg"
+                            alt="Haliza set abaya malaya couple by anieda material rayon premium mix polo linen premium">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Haliza set abaya malaya couple by anieda material rayon premium mix polo linen premium</h3>
+                        <p class="product-price">Rp 150.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/abaya jumbo.jpeg" alt="abaya jumbo">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>abaya jumbo</h3>
+                        <p class="product-price">Rp 150.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/rok.jpeg" alt="rok">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>rok</h3>
+                        <p class="product-price">Rp 120.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/kaos kaki.jpeg" alt="kaos kaki citra">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>kaos kaki citra</h3>
+                        <p class="product-price">Rp 120.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/kaos kaki rajut.jpeg" alt="Kaos Kaki Rajut Motif Premium">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Kaos Kaki Rajut Motif Premium</h3>
+                        <p class="product-price">Rp 120.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/kaos kaki pendek.jpeg" alt="kaos kaki pendek motif lucu">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>kaos kaki pendek motif lucu</h3>
+                        <p class="product-price">Rp 120.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/gamis kaftan.jpeg" alt="gamis kaftan">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>gamis kaftan</h3>
+                        <p class="product-price">💸 Rp 80.000 – Rp 160.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/rok putih.jpeg" alt="Rok Panjang Putih (White Straight Maxi Skirt)">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Rok Panjang Putih (White Straight Maxi Skirt)</h3>
+                        <p class="product-price">💸 Rp 80.000 – Rp 160.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="image/tunik linen.jpeg" alt="Tunik Linen Embroidery Button Front">
+                        <div class="product-actions">
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                            <button class="quick-view-btn"><i class="far fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Tunik Linen Embroidery Button Front</h3>
+                        <p class="product-price">💸 Rp 95.000 – Rp 180.000</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <button class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="promo">
+        <div class="container">
+            <div class="promo-content">
+                <h2>Special Discount 100%</h2>
+                <p>Dapatkan diskon spesial 100% untuk pembelian pertama Anda. Berlangsung hingga 31 Desember 2025</p>
+                <button class="promo-button">jangan klaim</button>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-scarf"></i> galeri hijab</h3>
+                    <p>Toko hijab terpercaya dengan kualitas terbaik dan harga terjangkau.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Kategori</h4>
+                    <ul>
+                        <li><a href="#">Hijab Segi Empat</a></li>
+                        <li><a href="#">Hijab Pashmina</a></li>
+                        <li><a href="#">Hijab Instan</a></li>
+                        <li><a href="#">Hijab Berpayet</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontak</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Jl. semuli jaya</p>
+                    <p><i class="fas fa-phone"></i> +62 812-3456-7890</p>
+                    <p><i class="fas fa-envelope"></i> hello@galerihijab.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 galerihijab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi Keluar</h3>
+            <p>Apakah Anda yakin ingin keluar dari akun Anda?</p>
+            <div class="modal-actions">
+                <button id="confirmLogout" class="btn-primary">Ya, Keluar</button>
+                <button id="cancelLogout" class="btn-secondary">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productDetailModal" class="product-detail-modal">
+        <div class="product-detail-content">
+            <button class="detail-close" id="detailClose">&times;</button>
+            <div class="detail-image">
+                <img id="detailImage" src="image/hijab anak.jpeg" alt="hijab anak 3-1">
+            </div>
+            <div class="detail-info">
+                <h2 id="detailTitle">Phijab anak 3-1</h2>
+                <p class="detail-price" id="detailPrice">Rp 0</p>
+                <div class="detail-rating" id="detailRating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(10 reviews)</span>
+                </div>
+
+                
+
+                <div class="detail-actions">
+                    <button class="btn-large btn-buy" id="buyNowBtn">Beli Sekarang</button>
+                    <button class="btn-large btn-cart" id="addToCartDetailBtn">Tambah ke Keranjang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/home.js"></script>
+</body>
+
+</html>
