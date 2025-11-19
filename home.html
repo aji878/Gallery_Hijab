@@ -22,7 +22,7 @@
                     <li><a href="#">Produk</a></li>
                     <li><a href="#">Kategori</a></li>
                     <li><a href="#">Tentang Kami</a></li>
-                    
+
                 </ul>
             </nav>
             <div class="header-actions">
@@ -682,7 +682,7 @@
         </div>
     </div>
 
-    <!-- Product Detail Modal -->
+    
     <div id="productDetailModal" class="product-detail-modal">
         <div class="product-detail-content">
             <button class="detail-close" id="detailClose">&times;</button>
@@ -701,7 +701,7 @@
                     <span>(10 reviews)</span>
                 </div>
 
-                
+
 
                 <div class="detail-actions">
                     <button class="btn-large btn-buy" id="buyNowBtn">Beli Sekarang</button>
@@ -710,6 +710,59 @@
             </div>
         </div>
     </div>
+
+    
+    <div id="addProductModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <h3>Tambah Produk Baru</h3>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="productImage">Foto Produk:</label>
+                    <input type="file" id="productImage" accept="image/*" required>
+                    <div class="image-preview" id="imagePreview">
+                        <img id="previewImage" src="" alt="Preview" style="display: none;">
+                        <span id="previewText">gambar akan muncul di sini</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productTitle">Nama Produk:</label>
+                    <input type="text" id="productTitle" placeholder="" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productPrice">Harga:</label>
+                    <input type="text" id="productPrice" placeholder="" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productDescription">Deskripsi:</label>
+                    <textarea id="productDescription" placeholder="Deskripsi produk..." rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Spesifikasi (opsional):</label>
+                    <div id="specsContainer">
+                        <div class="spec-input">
+                            <input type="text" class="spec-input-field" placeholder="Contoh: Bahan: Katun Premium">
+                            <button type="button" class="remove-spec-btn">×</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addSpecBtn" class="btn-secondary">+ Tambah Spesifikasi</button>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Tambah Produk</button>
+                    <button type="button" id="cancelAddProduct" class="btn-secondary">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <button id="floatingAddBtn" class="floating-add-btn">
+        <i class="fas fa-plus"></i>
+    </button>
 
     <script src="js/home.js"></script>
 </body>
