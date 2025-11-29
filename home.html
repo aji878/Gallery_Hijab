@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeri hijab</title>
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/pembayaran.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -18,10 +19,10 @@
             </div>
             <nav class="nav">
                 <ul>
-                    <li><a href="#" class="active">Beranda</a></li>
-                    <li><a href="#">Produk</a></li>
-                    <li><a href="#">Kategori</a></li>
-                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#home" class="nav-link active" data-target="home">Beranda</a></li>
+                    <li><a href="#produk" class="nav-link" data-target="produk">Produk</a></li>
+                    <li><a href="#kategori" class="nav-link" data-target="produk">Kategori</a></li>
+                    <li><a href="#tentang kami" class="nav-link" data-target="tentang kami">Tentang Kami</a></li>
 
                 </ul>
             </nav>
@@ -764,7 +765,216 @@
         <i class="fas fa-plus"></i>
     </button>
 
+
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <h3>Checkout</h3>
+            <div class="checkout-content">
+                <!-- Product List -->
+                <div class="checkout-products">
+                    <h4>Produk Dipesan</h4>
+                    <div id="checkoutProductList">
+
+                    </div>
+                    <div class="checkout-total">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">Rp 0</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Ongkos Kirim:</span>
+                            <span id="shippingCost">Rp 15.000</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total:</span>
+                            <span id="grandTotal">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Info -->
+                <div class="customer-info">
+                    <h4>Informasi Pelanggan</h4>
+                    <form id="customerForm">
+                        <div class="form-group">
+                            <label for="customerName">Nama Lengkap:</label>
+                            <input type="text" id="customerName" placeholder="Masukkan nama lengkap" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone">No. WhatsApp:</label>
+                            <input type="tel" id="customerPhone" placeholder="Contoh: 081234567890" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerAddress">Alamat Lengkap:</label>
+                            <textarea id="customerAddress" placeholder="Masukkan alamat lengkap pengiriman" rows="3"
+                                required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerNote">Catatan (opsional):</label>
+                            <textarea id="customerNote" placeholder="Catatan untuk penjual" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="payment-methods">
+                    <h4>Metode Pembayaran</h4>
+                    <div class="payment-options">
+                        <div class="payment-option" data-method="qris">
+                            <input type="radio" id="qris" name="paymentMethod" value="qris" checked>
+                            <label for="qris">
+                                <i class="fas fa-qrcode"></i>
+                                <span>QRIS</span>
+                                <small>Bayar dengan QR Code</small>
+                            </label>
+                        </div>
+
+                        <div class="payment-option" data-method="transfer">
+                            <input type="radio" id="transfer" name="paymentMethod" value="transfer">
+                            <label for="transfer">
+                                <i class="fas fa-university"></i>
+                                <span>Transfer Bank</span>
+                                <small>BCA, BNI, BRI, Mandiri</small>
+                            </label>
+                        </div>
+
+                        <div class="payment-option" data-method="cod">
+                            <input type="radio" id="cod" name="paymentMethod" value="cod">
+                            <label for="cod">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>COD (Cash on Delivery)</span>
+                                <small>Bayar saat barang diterima</small>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- QRIS Payment -->
+                    <div id="qrisPayment" class="payment-details active">
+                        <div class="qris-container">
+                            <div class="qris-code">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://galerihijab.com/payment/qris"
+                                    alt="QRIS Code">
+                                <p>Scan QR Code di atas menggunakan aplikasi e-wallet atau mobile banking</p>
+                            </div>
+                            <div class="payment-steps">
+                                <h5>Cara Pembayaran:</h5>
+                                <ol>
+                                    <li>Buka aplikasi e-wallet atau mobile banking</li>
+                                    <li>Pilih fitur Scan/Pay</li>
+                                    <li>Arahkan kamera ke QR code di atas</li>
+                                    <li>Konfirmasi pembayaran</li>
+                                    <li>Simpan bukti pembayaran</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bank Transfer -->
+                    <div id="transferPayment" class="payment-details">
+                        <div class="bank-transfer">
+                            <div class="bank-account">
+                                <h5>Transfer ke Rekening Berikut:</h5>
+                                <div class="bank-list">
+                                    <div class="bank-item">
+                                        <strong>BCA</strong>
+                                        <span>1234 5678 9012</span>
+                                        <span>a.n. Galeri Hijab</span>
+                                    </div>
+                                    <div class="bank-item">
+                                        <strong>BNI</strong>
+                                        <span>5678 9012 3456</span>
+                                        <span>a.n. Galeri Hijab</span>
+                                    </div>
+                                    <div class="bank-item">
+                                        <strong>BRI</strong>
+                                        <span>9012 3456 7890</span>
+                                        <span>a.n. Galeri Hijab</span>
+                                    </div>
+                                    <div class="bank-item">
+                                        <strong>Mandiri</strong>
+                                        <span>3456 7890 1234</span>
+                                        <span>a.n. Galeri Hijab</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="transfer-instructions">
+                                <h5>Instruksi Transfer:</h5>
+                                <ol>
+                                    <li>Transfer sesuai total pembayaran</li>
+                                    <li>Gunakan angka unik untuk mempermudah verifikasi</li>
+                                    <li>Simpan bukti transfer</li>
+                                    <li>Konfirmasi pembayaran via WhatsApp</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COD -->
+                    <div id="codPayment" class="payment-details">
+                        <div class="cod-info">
+                            <div class="cod-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <h5>Pembayaran di Tempat (COD)</h5>
+                            </div>
+                            <div class="cod-terms">
+                                <p><strong>Syarat & Ketentuan COD:</strong></p>
+                                <ul>
+                                    <li>Pembayaran dilakukan saat barang diterima</li>
+                                    <li>Hanya tersedia untuk area tertentu</li>
+                                    <li>Biaya tambahan COD: Rp 5.000</li>
+                                    <li>Pastikan ada uang pas saat kurir datang</li>
+                                    <li>Barang tidak bisa dibuka sebelum pembayaran</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout-actions">
+                <button id="confirmOrder" class="btn-primary">Konfirmasi Pesanan</button>
+                <button id="cancelCheckout" class="btn-secondary">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="orderConfirmationModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="order-success">
+                <i class="fas fa-check-circle"></i>
+                <h3>Pesanan Berhasil!</h3>
+                <p id="orderMessage">Pesanan Anda telah berhasil dibuat dan sedang diproses.</p>
+
+                <div class="order-summary">
+                    <div class="summary-item">
+                        <span>No. Pesanan:</span>
+                        <strong id="orderNumber">GH202412345</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total Pembayaran:</span>
+                        <strong id="orderTotal">Rp 0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Metode Pembayaran:</span>
+                        <strong id="orderPaymentMethod">-</strong>
+                    </div>
+                </div>
+
+                <div class="confirmation-actions">
+                    <button id="whatsappConfirm" class="btn-primary">
+                        <i class="fab fa-whatsapp"></i> Konfirmasi via WhatsApp
+                    </button>
+                    <button id="closeOrderModal" class="btn-secondary">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/home.js"></script>
+    <script src="js/logiitc.js"></script>
 </body>
 
 </html>

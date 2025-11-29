@@ -1,16 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // ==================== ELEMENTS ====================
     // Logout Elements
     const logoutBtn = document.getElementById('logoutBtn');
     const logoutModal = document.getElementById('logoutModal');
     const confirmLogout = document.getElementById('confirmLogout');
     const cancelLogout = document.getElementById('cancelLogout');
-    
+
     // Cart Elements
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
     const wishlistButtons = document.querySelectorAll('.wishlist-btn');
     const cartCount = document.querySelector('.cart-count');
-    
+
     // Product Detail Elements
     const productDetailModal = document.getElementById('productDetailModal');
     const detailClose = document.getElementById('detailClose');
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const quantityDisplay = document.getElementById('quantityDisplay');
     const buyNowBtn = document.getElementById('buyNowBtn');
     const addToCartDetailBtn = document.getElementById('addToCartDetailBtn');
-    
+
     // Add Product Elements
     const addProductModal = document.getElementById('addProductModal');
     const floatingAddBtn = document.getElementById('floatingAddBtn');
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productDescriptionInput = document.getElementById('productDescription');
     const specsContainer = document.getElementById('specsContainer');
     const addSpecBtn = document.getElementById('addSpecBtn');
-    
+
     // Search Elements
     const searchBox = document.querySelector('.search-box input');
     const searchButton = document.querySelector('.search-box button');
@@ -97,14 +97,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ==================== LOGOUT FUNCTIONALITY ====================
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', function(e) {
+        logoutBtn.addEventListener('click', function (e) {
             e.preventDefault();
             if (logoutModal) logoutModal.style.display = 'flex';
         });
     }
 
     if (confirmLogout) {
-        confirmLogout.addEventListener('click', function() {
+        confirmLogout.addEventListener('click', function () {
             showNotification('Anda telah berhasil keluar', 'success');
             setTimeout(() => {
                 window.location.href = 'index.html';
@@ -114,12 +114,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (cancelLogout) {
-        cancelLogout.addEventListener('click', function() {
+        cancelLogout.addEventListener('click', function () {
             if (logoutModal) logoutModal.style.display = 'none';
         });
     }
 
-    window.addEventListener('click', function(e) {
+    window.addEventListener('click', function (e) {
         if (e.target === logoutModal) {
             logoutModal.style.display = 'none';
         }
@@ -130,31 +130,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ==================== CART FUNCTIONALITY ====================
     addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const productCard = this.closest('.product-card');
             const productName = productCard.querySelector('h3').textContent;
-            
+
             let currentCount = parseInt(cartCount.textContent);
             cartCount.textContent = currentCount + 1;
-            
+
             showNotification(`${productName} ditambahkan ke keranjang`, 'success');
-            
+
             cartCount.parentElement.classList.add('pulse');
             setTimeout(() => {
                 cartCount.parentElement.classList.remove('pulse');
             }, 500);
-            
+
             updateCartCount(currentCount + 1);
         });
     });
 
     // ==================== WISHLIST FUNCTIONALITY ====================
     wishlistButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const icon = this.querySelector('i');
             const productCard = this.closest('.product-card');
             const productName = productCard.querySelector('h3').textContent;
-            
+
             if (icon.classList.contains('far')) {
                 icon.classList.remove('far');
                 icon.classList.add('fas');
@@ -171,19 +171,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ==================== SEARCH FUNCTIONALITY ====================
     if (searchButton) {
-        searchButton.addEventListener('click', function() {
+        searchButton.addEventListener('click', function () {
             performSearch();
         });
     }
-    
+
     if (searchBox) {
-        searchBox.addEventListener('keypress', function(e) {
+        searchBox.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 performSearch();
             }
         });
     }
-    
+
     function performSearch() {
         const searchTerm = searchBox.value.trim();
         if (searchTerm) {
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ==================== PRODUCT DETAIL FUNCTIONALITY ====================
     quickViewButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const productCard = this.closest('.product-card');
             const productTitle = productCard.querySelector('h3').textContent.trim();
             const productKey = generateProductKey(productTitle);
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showProductDetail(productKey, productCard) {
         const product = productDetails[productKey];
-        
+
         if (product) {
             detailImage.src = product.image;
             detailImage.alt = product.title;
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const title = productCard.querySelector('h3').textContent;
             const price = productCard.querySelector('.product-price').textContent;
             const image = productCard.querySelector('img').src;
-            
+
             detailImage.src = image;
             detailTitle.textContent = title;
             detailPrice.textContent = price;
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Kualitas: Original & Branded'
             ]);
         }
-        
+
         quantityDisplay.textContent = '1';
         currentQuantity = 1;
         productDetailModal.classList.add('show');
@@ -246,29 +246,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function setRatingStars(rating, reviews) {
         detailRating.innerHTML = '';
-        
+
         const fullStars = Math.floor(rating);
         const hasHalfStar = rating % 1 !== 0;
-        
+
         for (let i = 0; i < fullStars; i++) {
             const star = document.createElement('i');
             star.className = 'fas fa-star';
             detailRating.appendChild(star);
         }
-        
+
         if (hasHalfStar) {
             const halfStar = document.createElement('i');
             halfStar.className = 'fas fa-star-half-alt';
             detailRating.appendChild(halfStar);
         }
-        
+
         const emptyStars = 5 - Math.ceil(rating);
         for (let i = 0; i < emptyStars; i++) {
             const emptyStar = document.createElement('i');
             emptyStar.className = 'far fa-star';
             detailRating.appendChild(emptyStar);
         }
-        
+
         const reviewsSpan = document.createElement('span');
         reviewsSpan.textContent = `(${reviews} reviews)`;
         detailRating.appendChild(reviewsSpan);
@@ -285,13 +285,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     detailClose.addEventListener('click', closeProductDetail);
 
-    productDetailModal.addEventListener('click', function(e) {
+    productDetailModal.addEventListener('click', function (e) {
         if (e.target === productDetailModal) {
             closeProductDetail();
         }
     });
 
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && productDetailModal.classList.contains('show')) {
             closeProductDetail();
         }
@@ -305,58 +305,58 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================== QUANTITY CONTROLS ====================
     let currentQuantity = 1;
 
-    quantityDecrease.addEventListener('click', function() {
+    quantityDecrease.addEventListener('click', function () {
         if (currentQuantity > 1) {
             currentQuantity--;
             quantityDisplay.textContent = currentQuantity;
         }
     });
 
-    quantityIncrease.addEventListener('click', function() {
+    quantityIncrease.addEventListener('click', function () {
         currentQuantity++;
         quantityDisplay.textContent = currentQuantity;
     });
 
     // ==================== BUY NOW & ADD TO CART IN DETAIL ====================
-    buyNowBtn.addEventListener('click', function() {
+    buyNowBtn.addEventListener('click', function () {
         const productTitle = detailTitle.textContent;
         showNotification(`Memproses pembelian ${currentQuantity} ${productTitle}`, 'success');
         closeProductDetail();
     });
 
-    addToCartDetailBtn.addEventListener('click', function() {
+    addToCartDetailBtn.addEventListener('click', function () {
         const productTitle = detailTitle.textContent;
-        
+
         let currentCount = parseInt(cartCount.textContent);
         const newCount = currentCount + currentQuantity;
         cartCount.textContent = newCount;
-        
+
         showNotification(`${currentQuantity} ${productTitle} ditambahkan ke keranjang`, 'success');
-        
+
         cartCount.parentElement.classList.add('pulse');
         setTimeout(() => {
             cartCount.parentElement.classList.remove('pulse');
         }, 500);
-        
+
         updateCartCount(newCount);
         closeProductDetail();
     });
 
     // ==================== ADD PRODUCT FUNCTIONALITY ====================
-    floatingAddBtn.addEventListener('click', function() {
+    floatingAddBtn.addEventListener('click', function () {
         addProductModal.style.display = 'flex';
         resetAddProductForm();
     });
 
-    cancelAddProduct.addEventListener('click', function() {
+    cancelAddProduct.addEventListener('click', function () {
         addProductModal.style.display = 'none';
     });
 
-    productImageInput.addEventListener('change', function(e) {
+    productImageInput.addEventListener('change', function (e) {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 previewImage.src = e.target.result;
                 previewImage.style.display = 'block';
                 previewText.style.display = 'none';
@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    addSpecBtn.addEventListener('click', function() {
+    addSpecBtn.addEventListener('click', function () {
         addSpecificationField();
     });
 
@@ -377,8 +377,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <button type="button" class="remove-spec-btn">×</button>
         `;
         specsContainer.appendChild(specDiv);
-        
-        specDiv.querySelector('.remove-spec-btn').addEventListener('click', function() {
+
+        specDiv.querySelector('.remove-spec-btn').addEventListener('click', function () {
             specDiv.remove();
         });
     }
@@ -391,21 +391,21 @@ document.addEventListener('DOMContentLoaded', function() {
         addSpecificationField();
     }
 
-    addProductForm.addEventListener('submit', function(e) {
+    addProductForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         const imageFile = productImageInput.files[0];
         const title = productTitleInput.value.trim();
         const price = productPriceInput.value.trim();
         const description = productDescriptionInput.value.trim();
-        
+
         if (!imageFile || !title || !price) {
             showNotification('Harap isi semua field yang diperlukan', 'error');
             return;
         }
-        
+
         const productKey = generateProductKey(title);
-        
+
         const specs = [];
         const specInputs = specsContainer.querySelectorAll('.spec-input-field');
         specInputs.forEach(input => {
@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 specs.push(input.value.trim());
             }
         });
-        
+
         const newProduct = {
             title: title,
             price: price,
@@ -427,13 +427,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Warna: Various Colors Available'
             ]
         };
-        
+
         productDetails[productKey] = newProduct;
         addProductToGrid(newProduct, productKey);
-        
+
         addProductModal.style.display = 'none';
         showNotification('Produk berhasil ditambahkan!', 'success');
-        
+
         setTimeout(() => {
             const newProductElement = document.querySelector(`[data-product-key="${productKey}"]`);
             if (newProductElement) {
@@ -447,9 +447,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
         productCard.setAttribute('data-product-key', productKey);
-        
+
         const starsHTML = generateStarsHTML(product.rating);
-        
+
         productCard.innerHTML = `
             <div class="product-image">
                 <img src="${product.image}" alt="${product.title}">
@@ -468,16 +468,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="add-to-cart-btn">Tambah ke Keranjang</button>
             </div>
         `;
-        
+
         const quickViewBtn = productCard.querySelector('.quick-view-btn');
         const addToCartBtn = productCard.querySelector('.add-to-cart-btn');
         const wishlistBtn = productCard.querySelector('.wishlist-btn');
-        
-        quickViewBtn.addEventListener('click', function() {
+
+        quickViewBtn.addEventListener('click', function () {
             showProductDetail(productKey, productCard);
         });
-        
-        addToCartBtn.addEventListener('click', function() {
+
+        addToCartBtn.addEventListener('click', function () {
             let currentCount = parseInt(cartCount.textContent);
             cartCount.textContent = currentCount + 1;
             showNotification(`${product.title} ditambahkan ke keranjang`, 'success');
@@ -487,8 +487,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 500);
             updateCartCount(currentCount + 1);
         });
-        
-        wishlistBtn.addEventListener('click', function() {
+
+        wishlistBtn.addEventListener('click', function () {
             const icon = this.querySelector('i');
             if (icon.classList.contains('far')) {
                 icon.classList.remove('far');
@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 showNotification(`${product.title} dihapus dari favorit`, 'info');
             }
         });
-        
+
         productGrid.insertBefore(productCard, productGrid.firstChild);
     }
 
@@ -510,20 +510,20 @@ document.addEventListener('DOMContentLoaded', function() {
         let starsHTML = '';
         const fullStars = Math.floor(rating);
         const hasHalfStar = rating % 1 !== 0;
-        
+
         for (let i = 0; i < fullStars; i++) {
             starsHTML += '<i class="fas fa-star"></i>';
         }
-        
+
         if (hasHalfStar) {
             starsHTML += '<i class="fas fa-star-half-alt"></i>';
         }
-        
+
         const emptyStars = 5 - Math.ceil(rating);
         for (let i = 0; i < emptyStars; i++) {
             starsHTML += '<i class="far fa-star"></i>';
         }
-        
+
         return starsHTML;
     }
 
@@ -533,14 +533,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (existingNotification) {
             existingNotification.remove();
         }
-        
+
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
         notification.innerHTML = `
             <span>${message}</span>
             <button class="notification-close">&times;</button>
         `;
-        
+
         notification.style.cssText = `
             position: fixed;
             top: 20px;
@@ -558,7 +558,7 @@ document.addEventListener('DOMContentLoaded', function() {
             border-left: 4px solid ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#17a2b8'};
             animation: slideIn 0.3s ease-out;
         `;
-        
+
         const closeButton = notification.querySelector('.notification-close');
         closeButton.style.cssText = `
             background: none;
@@ -572,16 +572,16 @@ document.addEventListener('DOMContentLoaded', function() {
             align-items: center;
             justify-content: center;
         `;
-        
-        closeButton.addEventListener('click', function() {
+
+        closeButton.addEventListener('click', function () {
             notification.style.animation = 'slideOut 0.3s ease-in';
             setTimeout(() => {
                 notification.remove();
             }, 300);
         });
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             if (notification.parentElement) {
                 notification.style.animation = 'slideOut 0.3s ease-in';
@@ -621,4 +621,99 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         showNotification('Selamat datang di Galeri Hijab!', 'success');
     }, 1000);
+});
+// ==================== NAVIGATION FUNCTIONALITY ====================
+
+// Navigation Elements
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section');
+
+// Function to handle navigation
+function handleNavigation(target) {
+    // Remove active class from all links and sections
+    navLinks.forEach(link => link.classList.remove('active'));
+    sections.forEach(section => section.classList.remove('active'));
+
+    // Add active class to clicked link
+    const activeLink = document.querySelector(`[data-target="${target}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
+
+    // Show target section with smooth scroll
+    const targetSection = document.getElementById(target);
+    if (targetSection) {
+        targetSection.classList.add('active');
+
+        // Smooth scroll to section
+        setTimeout(() => {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }, 100);
+    }
+}
+
+// Add click event listeners to navigation links
+navLinks.forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = this.getAttribute('data-target');
+        handleNavigation(target);
+    });
+});
+
+// Function to handle hash URL changes
+function handleHashChange() {
+    const hash = window.location.hash.substring(1); // Remove # symbol
+    if (hash) {
+        handleNavigation(hash);
+    } else {
+        // Default to home
+        handleNavigation('home');
+    }
+}
+
+// Handle initial page load and hash changes
+window.addEventListener('load', handleHashChange);
+window.addEventListener('hashchange', handleHashChange);
+
+// Optional: Add intersection observer for scroll-based active states
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.3
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-target') === id) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    });
+}, observerOptions);
+
+// Observe all sections
+sections.forEach(section => {
+    observer.observe(section);
+});
+
+// Initialize first load
+document.addEventListener('DOMContentLoaded', function () {
+    // Show all sections on load
+    sections.forEach(section => {
+        section.classList.add('active');
+    });
+
+    // Set home as default active
+    if (!window.location.hash) {
+        handleNavigation('home');
+    }
 });
