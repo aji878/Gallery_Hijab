@@ -2,6 +2,7 @@
 class Product {
     private $conn;
     private $table_name = "products";
+    
 
     public $id;
     public $name;
@@ -12,6 +13,7 @@ class Product {
     public $rating;
     public $review_count;
     public $created_at;
+    
 
     public function __construct($db) {
         $this->conn = $db;
@@ -44,8 +46,8 @@ class Product {
 
     public function create() {
         $query = "INSERT INTO " . $this->table_name . " 
-                 SET name=:name, price=:price, description=:description, 
-                     image=:image, category=:category, rating=:rating";
+            SET name=:name, price=:price, description=:description, 
+                image=:image, category=:category, rating=:rating, review_count=:review_count";
         
         $stmt = $this->conn->prepare($query);
         
@@ -64,6 +66,7 @@ class Product {
         $stmt->bindParam(":image", $this->image);
         $stmt->bindParam(":category", $this->category);
         $stmt->bindParam(":rating", $this->rating);
+        $stmt->bindParam(":review_count", $this->review_count);
         
         if($stmt->execute()) {
             return true;

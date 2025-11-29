@@ -9,7 +9,7 @@ include_once '../models/Product.php';
 
 $database = new Database();
 $db = $database->getConnection();
-$product = new $product($db);
+$product = new Product($db);
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -19,34 +19,86 @@ switch($method) {
             // Get single product
             $product->id = $_GET['id'];
             $stmt = $product->readOne();
+            $products_arr = array();
+            
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                array_push($products_arr, $row);
+            }
+            echo json_encode($products_arr[0] ?? array());
         } else {
             // Get all products
             $stmt = $product->read();
+            $products_arr = array();
+            
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                array_push($products_arr, $row);
+            }
+            echo json_encode($products_arr);
         }
-        
-        $products_arr = array();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            array_push($products_arr, $row);
-        }
-        echo json_encode($products_arr);
         break;
 
     case 'POST':
-        // Add new product
-        $data = json_decode(file_get_contents("php://input"));
-        
-        $product->name = $data->name;
-        $product->price = $data->price;
-        $product->description = $data->description;
-        $product->image = $data->image;
-        $product->category = $data->category;
-        $product->rating = $data->rating;
-        
-        if($product->create()) {
-            echo json_encode(array("message" => "Product created."));
+        // Handle file upload
+        if(isset($_FILES['productImage'])) {
+            $uploadDir = '../image/products/';
+            if(!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            
+            $fileName = time() . '_' . basename($_FILES['productImage']['name']);
+            $targetFilePath = $uploadDir . $fileName;
+            
+            // Check if image file is a actual image
+            $check = getimagesize($_FILES['productImage']['tmp_name']);
+            if($check !== false) {
+                if(move_uploaded_file($_FILES['productImage']['tmp_name'], $targetFilePath)) {
+                    // File uploaded successfully, now add product to database
+                    $product->name = $_POST['productName'];
+                    $product->price = $_POST['productPrice'];
+                    $product->description = $_POST['productDescription'] ?? '';
+                    $product->image = 'image/products/' . $fileName;
+                    $product->category = $_POST['productCategory'];
+                    $product->rating = $_POST['productRating'] ?? 4.5;
+                    $product->review_count = 0;
+                    
+                    if($product->create()) {
+                        echo json_encode(array("message" => "Product created successfully."));
+                    } else {
+                        echo json_encode(array("message" => "Unable to create product."));
+                    }
+                } else {
+                    echo json_encode(array("message" => "Sorry, there was an error uploading your file."));
+                }
+            } else {
+                echo json_encode(array("message" => "File is not an image."));
+            }
         } else {
-            echo json_encode(array("message" => "Unable to create product."));
+            // JSON input (for other clients)
+            $data = json_decode(file_get_contents("php://input"));
+            
+            if(!empty($data->name) && !empty($data->price)) {
+                $product->name = $data->name;
+                $product->price = $data->price;
+                $product->description = $data->description ?? '';
+                $product->image = $data->image ?? 'image/default-product.jpg';
+                $product->category = $data->category ?? 'Uncategorized';
+                $product->rating = $data->rating ?? 4.5;
+                $product->review_count = $data->review_count ?? 0;
+                
+                if($product->create()) {
+                    echo json_encode(array("message" => "Product created."));
+                } else {
+                    echo json_encode(array("message" => "Unable to create product."));
+                }
+            } else {
+                echo json_encode(array("message" => "Unable to create product. Data is incomplete."));
+            }
         }
+        break;
+
+    default:
+        http_response_code(405);
+        echo json_encode(array("message" => "Method not allowed."));
         break;
 }
 ?>
