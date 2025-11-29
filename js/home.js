@@ -717,3 +717,567 @@ document.addEventListener('DOMContentLoaded', function () {
         handleNavigation('home');
     }
 });
+
+// Fungsi untuk menambah produk ke favorit
+function addToFavorites(productId, productName, price) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    // Cek apakah produk sudah ada di favorit
+    const existingProduct = favorites.find(item => item.id === productId);
+
+    if (!existingProduct) {
+        favorites.push({
+            id: productId,
+            name: productName,
+            price: price,
+            addedDate: new Date()
+        });
+
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        updateFavoriteCount();
+        showNotification('Produk berhasil ditambahkan ke favorit');
+    }
+}
+
+// Fungsi untuk menghapus produk dari favorit
+function removeFromFavorites(productId) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites = favorites.filter(item => item.id !== productId);
+    
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    updateFavoriteCount();
+    showNotification('Produk dihapus dari favorit');
+}
+
+// Fungsi untuk update angka favorit di navbar
+function updateFavoriteCount() {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const favoriteCount = favorites.length;
+    
+    // Format angka menjadi 3 digit (contoh: 001, 012, 123)
+    const formattedCount = favoriteCount.toString().padStart(3, '0');
+    
+    // Update tampilan di UI
+    const favoriteElement = document.querySelector('.favorite-count');
+    if (favoriteElement) {
+        favoriteElement.textContent = formattedCount;
+    }
+    
+    return favoriteCount;
+}
+
+// Fungsi untuk mengambil semua data favorit
+function getFavorites() {
+    return JSON.parse(localStorage.getItem('favorites')) || [];
+}
+
+// Fungsi untuk menampilkan notifikasi
+function showNotification(message) {
+    // Buat element notifikasi
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 5px;
+        z-index: 1000;
+        animation: slideIn 0.3s ease;
+    `;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Hapus notifikasi setelah 3 detik
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Fungsi toggle untuk tambah/hapus favorit
+function toggleFavorite(productId, productName, price) {
+    if (isProductFavorited(productId)) {
+        removeFromFavorites(productId);
+    } else {
+        addToFavorites(productId, productName, price);
+    }
+}
+
+// Inisialisasi saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    updateFavoriteCount();
+});
+
+// js/home.js - Tambahkan kode berikut
+
+// Data storage
+let userData = {
+    name: "galeri hijab",
+    email: "user@example.com",
+    phone: "+62 812-3456-7890",
+    address: "Jl. semuli jaya"
+};
+
+let favoriteProducts = JSON.parse(localStorage.getItem('favoriteProducts')) || [];
+let orders = JSON.parse(localStorage.getItem('userOrders')) || [];
+
+// Favorite Functionality
+function initializeFavorites() {
+    const favoriteBtn = document.getElementById('favorit');
+    if (favoriteBtn) {
+        favoriteBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showFavoriteProducts();
+        });
+    }
+
+    // Add click event to all wishlist buttons
+    const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+    wishlistButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productCard = this.closest('.product-card');
+            toggleFavorite(productCard);
+        });
+    });
+}
+
+function toggleFavorite(productCard) {
+    const productImage = productCard.querySelector('img').src;
+    const productTitle = productCard.querySelector('h3').textContent;
+    const productPrice = productCard.querySelector('.product-price').textContent;
+    
+    const product = {
+        image: productImage,
+        title: productTitle,
+        price: productPrice,
+        id: generateProductId(productTitle)
+    };
+
+    const heartIcon = productCard.querySelector('.wishlist-btn i');
+    
+    // Check if product is already in favorites
+    const existingIndex = favoriteProducts.findIndex(p => p.id === product.id);
+    
+    if (existingIndex > -1) {
+        // Remove from favorites
+        favoriteProducts.splice(existingIndex, 1);
+        heartIcon.classList.remove('fas');
+        heartIcon.classList.add('far');
+        showNotification('Produk dihapus dari favorit', 'info');
+    } else {
+        // Add to favorites
+        favoriteProducts.push(product);
+        heartIcon.classList.remove('far');
+        heartIcon.classList.add('fas');
+        showNotification('Produk ditambahkan ke favorit', 'success');
+    }
+    
+    // Update localStorage
+    localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts));
+    
+    // Update favorite count in navigation if exists
+    updateFavoriteCount();
+}
+
+function showFavoriteProducts() {
+    const modal = createModal('favorite');
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 800px;">
+            <h3><i class="fas fa-heart"></i> Produk Favorit Saya</h3>
+            <div class="favorite-content">
+                ${favoriteProducts.length === 0 ? 
+                    `<div class="empty-state">
+                        <i class="far fa-heart"></i>
+                        <h4>Belum ada produk favorit</h4>
+                        <p>Produk yang Anda sukai akan muncul di sini</p>
+                        <button class="btn-primary" onclick="closeModal('favorite')">Mulai Belanja</button>
+                    </div>` :
+                    `<div class="favorite-grid">
+                        ${favoriteProducts.map(product => `
+                            <div class="favorite-item">
+                                <div class="favorite-image">
+                                    <img src="${product.image}" alt="${product.title}">
+                                </div>
+                                <div class="favorite-info">
+                                    <h4>${product.title}</h4>
+                                    <p class="favorite-price">${product.price}</p>
+                                    <div class="favorite-actions">
+                                        <button class="btn-primary add-to-cart-from-fav" data-product='${JSON.stringify(product)}'>Tambah ke Keranjang</button>
+                                        <button class="btn-secondary remove-from-fav" data-id="${product.id}">Hapus</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>`
+                }
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeModal('favorite')">Tutup</button>
+            </div>
+        </div>
+    `;
+
+    // Add event listeners for remove buttons
+    modal.querySelectorAll('.remove-from-fav').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-id');
+            removeFromFavorites(productId);
+            showFavoriteProducts(); // Refresh the view
+        });
+    });
+
+    // Add event listeners for add to cart buttons
+    modal.querySelectorAll('.add-to-cart-from-fav').forEach(button => {
+        button.addEventListener('click', function() {
+            const product = JSON.parse(this.getAttribute('data-product'));
+            addToCartFromFavorite(product);
+        });
+    });
+}
+
+function removeFromFavorites(productId) {
+    favoriteProducts = favoriteProducts.filter(product => product.id !== productId);
+    localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts));
+    updateFavoriteCount();
+    showNotification('Produk dihapus dari favorit', 'info');
+}
+
+function addToCartFromFavorite(product) {
+    // Implement add to cart functionality here
+    showNotification('Produk ditambahkan ke keranjang', 'success');
+    closeModal('favorite');
+}
+
+function updateFavoriteCount() {
+    const favoriteCount = document.querySelector('.favorite-count');
+    if (favoriteCount) {
+        favoriteCount.textContent = favoriteProducts.length;
+    }
+}
+
+// Orders Functionality
+function initializeOrders() {
+    const ordersBtn = document.querySelector('a[href="#"]:has(.fa-shopping-bag)');
+    if (ordersBtn) {
+        ordersBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showMyOrders();
+        });
+    }
+}
+
+function showMyOrders() {
+    const modal = createModal('orders');
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 900px;">
+            <h3><i class="fas fa-shopping-bag"></i> Pesanan Saya</h3>
+            <div class="orders-content">
+                ${orders.length === 0 ? 
+                    `<div class="empty-state">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h4>Belum ada pesanan</h4>
+                        <p>Pesanan Anda akan muncul di sini</p>
+                        <button class="btn-primary" onclick="closeModal('orders')">Mulai Belanja</button>
+                    </div>` :
+                    `<div class="orders-list">
+                        ${orders.map(order => `
+                            <div class="order-card">
+                                <div class="order-header">
+                                    <div class="order-info">
+                                        <h4>Order #${order.id}</h4>
+                                        <span class="order-date">${order.date}</span>
+                                    </div>
+                                    <div class="order-status ${order.status}">
+                                        ${getStatusText(order.status)}
+                                    </div>
+                                </div>
+                                <div class="order-items">
+                                    ${order.items.map(item => `
+                                        <div class="order-item">
+                                            <img src="${item.image}" alt="${item.title}">
+                                            <div class="item-info">
+                                                <h5>${item.title}</h5>
+                                                <span>${item.quantity} x ${item.price}</span>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="order-footer">
+                                    <div class="order-total">
+                                        Total: <strong>${order.total}</strong>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="btn-secondary" onclick="viewOrderDetail('${order.id}')">Detail</button>
+                                        ${order.status === 'pending' ? 
+                                            `<button class="btn-primary" onclick="payOrder('${order.id}')">Bayar</button>` : 
+                                            ''
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>`
+                }
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeModal('orders')">Tutup</button>
+            </div>
+        </div>
+    `;
+}
+
+function getStatusText(status) {
+    const statusMap = {
+        'pending': 'Menunggu Pembayaran',
+        'paid': 'Dibayar',
+        'processing': 'Diproses',
+        'shipped': 'Dikirim',
+        'delivered': 'Selesai',
+        'cancelled': 'Dibatalkan'
+    };
+    return statusMap[status] || status;
+}
+
+function viewOrderDetail(orderId) {
+    const order = orders.find(o => o.id === orderId);
+    if (!order) return;
+
+    const modal = createModal('orderDetail');
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 600px;">
+            <h3><i class="fas fa-file-invoice"></i> Detail Pesanan #${order.id}</h3>
+            <div class="order-detail">
+                <div class="detail-section">
+                    <h4>Status Pesanan</h4>
+                    <div class="status-timeline">
+                        <div class="timeline-item ${order.status === 'pending' ? 'active' : ''}">
+                            <div class="timeline-dot"></div>
+                            <span>Menunggu Pembayaran</span>
+                        </div>
+                        <div class="timeline-item ${order.status === 'paid' ? 'active' : ''}">
+                            <div class="timeline-dot"></div>
+                            <span>Pembayaran Diterima</span>
+                        </div>
+                        <div class="timeline-item ${order.status === 'processing' ? 'active' : ''}">
+                            <div class="timeline-dot"></div>
+                            <span>Pesanan Diproses</span>
+                        </div>
+                        <div class="timeline-item ${order.status === 'shipped' ? 'active' : ''}">
+                            <div class="timeline-dot"></div>
+                            <span>Pesanan Dikirim</span>
+                        </div>
+                        <div class="timeline-item ${order.status === 'delivered' ? 'active' : ''}">
+                            <div class="timeline-dot"></div>
+                            <span>Pesanan Selesai</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h4>Items Pesanan</h4>
+                    <div class="order-items-detail">
+                        ${order.items.map(item => `
+                            <div class="order-item-detail">
+                                <img src="${item.image}" alt="${item.title}">
+                                <div class="item-detail-info">
+                                    <h5>${item.title}</h5>
+                                    <p>Jumlah: ${item.quantity}</p>
+                                    <p>Harga: ${item.price}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h4>Informasi Pengiriman</h4>
+                    <div class="shipping-info">
+                        <p><strong>Nama:</strong> ${order.customerName}</p>
+                        <p><strong>Telepon:</strong> ${order.customerPhone}</p>
+                        <p><strong>Alamat:</strong> ${order.customerAddress}</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h4>Ringkasan Pembayaran</h4>
+                    <div class="payment-summary">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span>${order.subtotal}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Ongkos Kirim:</span>
+                            <span>${order.shippingCost}</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span>${order.total}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeModal('orderDetail')">Tutup</button>
+            </div>
+        </div>
+    `;
+}
+
+// Profile Functionality
+function initializeProfile() {
+    const profileBtn = document.querySelector('a[href="#"]:has(.fa-user)');
+    if (profileBtn) {
+        profileBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showMyProfile();
+        });
+    }
+}
+
+function showMyProfile() {
+    const modal = createModal('profile');
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 600px;">
+            <h3><i class="fas fa-user"></i> Profil Saya</h3>
+            <div class="profile-content">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name)}&background=6e8efb&color=fff&size=120" 
+                             alt="${userData.name}">
+                        <button class="btn-secondary change-avatar">Ubah Foto</button>
+                    </div>
+                    <div class="profile-info">
+                        <h4>${userData.name}</h4>
+                        <p>Member sejak 2024</p>
+                    </div>
+                </div>
+
+                <form id="profileForm" class="profile-form">
+                    <div class="form-group">
+                        <label for="profileName">Nama Lengkap</label>
+                        <input type="text" id="profileName" value="${userData.name}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profileEmail">Email</label>
+                        <input type="email" id="profileEmail" value="${userData.email}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profilePhone">No. Telepon</label>
+                        <input type="tel" id="profilePhone" value="${userData.phone}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profileAddress">Alamat</label>
+                        <textarea id="profileAddress" rows="3" required>${userData.address}</textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Simpan Perubahan</button>
+                        <button type="button" class="btn-secondary" onclick="closeModal('profile')">Batal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    // Add form submit event
+    const profileForm = document.getElementById('profileForm');
+    profileForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        saveProfileChanges();
+    });
+}
+
+function saveProfileChanges() {
+    const name = document.getElementById('profileName').value;
+    const email = document.getElementById('profileEmail').value;
+    const phone = document.getElementById('profilePhone').value;
+    const address = document.getElementById('profileAddress').value;
+
+    userData = { name, email, phone, address };
+    
+    // Update user profile in header
+    const userNameElement = document.querySelector('.user-profile span');
+    if (userNameElement) {
+        userNameElement.textContent = name;
+    }
+
+    // Update avatar
+    const avatarImg = document.querySelector('.user-profile img');
+    if (avatarImg) {
+        avatarImg.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6e8efb&color=fff`;
+    }
+
+    showNotification('Profil berhasil diperbarui', 'success');
+    closeModal('profile');
+}
+
+// Utility Functions
+function createModal(type) {
+    // Remove existing modal of same type
+    const existingModal = document.getElementById(`${type}Modal`);
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    const modal = document.createElement('div');
+    modal.id = `${type}Modal`;
+    modal.className = 'modal active';
+    document.body.appendChild(modal);
+    
+    // Add click outside to close
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal(type);
+        }
+    });
+
+    return modal;
+}
+
+function closeModal(type) {
+    const modal = document.getElementById(`${type}Modal`);
+    if (modal) {
+        modal.remove();
+    }
+}
+
+function generateProductId(title) {
+    return title.toLowerCase().replace(/[^a-z0-9]/g, '-');
+}
+
+function showNotification(message, type = 'info') {
+    // Remove existing notification
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">&times;</button>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 3000);
+}
+
+// Initialize all functionality when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeFavorites();
+    initializeOrders();
+    initializeProfile();
+    updateFavoriteCount();
+});

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/pembayaran.css">
     <link rel="stylesheet" href="css/tentangkami.css">
+    <link rel="stylesheet" href="css/fpk.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -24,7 +25,7 @@
                     <li><a href="#produk" class="nav-link" data-target="produk">Produk</a></li>
                     <li><a href="#kategori" class="nav-link" data-target="produk">Kategori</a></li>
                     <li><a href="#tentang kami" class="nav-link" data-target="tentang kami">Tentang Kami</a></li>
-                    <li><a href="#Tim Kami" class="nav-link" data-target="Tim Kami">Tim Kami</a></li>
+                    <li><a href="#myteam" class="nav-link" data-target="Tim Kami">Tim Kami</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
@@ -43,7 +44,7 @@
                         <div class="dropdown-menu">
                             <a href="#"><i class="fas fa-user"></i> Profil Saya</a>
                             <a href="#"><i class="fas fa-shopping-bag"></i> Pesanan Saya</a>
-                            <a href="#"><i class="fas fa-heart"></i> Favorit</a>
+                            <a href="#" id="favorit"><i class="fas fa-heart"></i> Favorit</a>
                             <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Keluar</a>
                         </div>
                     </div>
@@ -675,19 +676,19 @@
 
                 <div class="about-stats">
                     <div class="stat-item">
-                        <div class="stat-number" data-count="5000">0</div>
+                        <div class="stat-number" data-count="5000">5000</div>
                         <div class="stat-label">Pelanggan Bahagia</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-count="100">0</div>
+                        <div class="stat-number" data-count="100">100</div>
                         <div class="stat-label">Produk Tersedia</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-number" data-count="50">20</div>
                         <div class="stat-label">Kota Terjangkau</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-count="3">0</div>
+                        <div class="stat-number" data-count="50">12</div>
                         <div class="stat-label">Tahun Berpengalaman</div>
                     </div>
                 </div>
@@ -735,61 +736,7 @@
             </div>
         </div>
 
-        <!-- Team Section -->
-        <div class="team-section">
-            <h2 class="section-title">Tim Kami</h2>
-            <p class="section-subtitle">Orang-orang di balik kesuksesan Galeri Hijab</p>
-
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-photo">
-                        <img src="https://ui-avatars.com/api/?name=Sarah+Putri&background=a777e3&color=fff&size=200"
-                            alt="Sarah Putri">
-                    </div>
-                    <h3>Sarah Putri</h3>
-                    <p class="member-role">Founder & CEO</p>
-                    <p class="member-bio">Penggemar fashion muslim dengan pengalaman 5 tahun di industri hijab.</p>
-                    <div class="member-social">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-
-                <div class="team-member">
-                    <div class="member-photo">
-                        <img src="https://ui-avatars.com/api/?name=Ahmad+Rizki&background=6e8efb&color=fff&size=200"
-                            alt="Ahmad Rizki">
-                    </div>
-                    <h3>Ahmad Rizki</h3>
-                    <p class="member-role">Head of Operations</p>
-                    <p class="member-bio">Ahli dalam manajemen logistik dan operasional dengan fokus pada kepuasan
-                        pelanggan.</p>
-                    <div class="member-social">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-
-                <div class="team-member">
-                    <div class="member-photo">
-                        <img src="https://ui-avatars.com/api/?name=Maya+Sari&background=ff6b8b&color=fff&size=200"
-                            alt="Maya Sari">
-                    </div>
-                    <h3>Maya Sari</h3>
-                    <p class="member-role">Creative Director</p>
-                    <p class="member-bio">Desainer dengan passion dalam menciptakan hijab yang stylish dan nyaman
-                        dipakai.</p>
-                    <div class="member-social">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        
         <!-- Testimoni Section -->
         <div class="testimonials">
             <h2 class="section-title">Apa Kata Pelanggan Kami</h2>
@@ -868,6 +815,59 @@
         </div>
     </div>
 </section>
+
+<!-- Team Section -->
+        <div class="team-section">
+            <h2 class="section-title">myTeam</h2>
+            <p class="section-subtitle">pembuat web galeri hijab</p>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="image/k.jpeg"
+                            alt="kiki noviliya">
+                    </div>
+                    <h3>kiki noviliya</h3>
+                    <p class="member-role">content generator</p>
+                    <p class="member-bio">cewe imut kyut</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="image/"
+                            alt="Aji Praseetyo">
+                    </div>
+                    <h3>Aji Prasetyo</h3>
+                    <p class="member-role">programmer</p>
+                    <p class="member-bio">gtw</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                 <div class="team-member">
+                    <div class="member-photo">
+                        <img src="image/rini.jpeg"
+                            alt="rini jovita">
+                    </div>
+                    <h3>rini jovita</h3>
+                    <p class="member-role">desain</p>
+                    <p class="member-bio">wanita baik hati alim dan rajin menabung</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                </div>
+            </div>
 
 
     <footer class="footer">
