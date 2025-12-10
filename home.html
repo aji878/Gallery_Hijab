@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/pembayaran.css">
     <link rel="stylesheet" href="css/tentangkami.css">
-    <link rel="stylesheet" href="css/fpk.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -17,15 +16,15 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <h1><i class="fas fa-scarf"></i> Galeri hijab</h1>
+                <h1><i class="fas fa-scarf"></i>Galeri hijab</h1>
             </div>
             <nav class="nav">
                 <ul>
                     <li><a href="#home" class="nav-link active" data-target="home">Beranda</a></li>
                     <li><a href="#produk" class="nav-link" data-target="produk">Produk</a></li>
-                    <li><a href="#kategori" class="nav-link" data-target="produk">Kategori</a></li>
-                    <li><a href="#tentang kami" class="nav-link" data-target="tentang kami">Tentang Kami</a></li>
-                    <li><a href="#myteam" class="nav-link" data-target="Tim Kami">Tim Kami</a></li>
+                    <li><a href="#kategori" class="nav-link" data-target="kategori">Kategori</a></li>
+                    <li><a href="#tentang-kami" class="nav-link" data-target="tentang-kami">Tentang Kami</a></li>
+                    <li><a href="#myteam" class="nav-link" data-target="tim-kami">Tim Kami</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
@@ -38,13 +37,17 @@
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">3</span>
                     </a>
+                    <a href="#" id="favorit" class="favorite-icon">
+                        <i class="fas fa-heart"></i>
+                        <span class="favorite-count">0</span>
+                    </a>
                     <div class="user-profile">
                         <img src="https://ui-avatars.com/api/?name=User&background=6e8efb&color=fff" alt="Galeri hijab">
                         <span>galeri hijab</span>
                         <div class="dropdown-menu">
-                            <a href="#"><i class="fas fa-user"></i> Profil Saya</a>
-                            <a href="#"><i class="fas fa-shopping-bag"></i> Pesanan Saya</a>
-                            <a href="#" id="favorit"><i class="fas fa-heart"></i> Favorit</a>
+                            <a href="#" class="profile-link"><i class="fas fa-user"></i> Profil Saya</a>
+                            <a href="#" class="orders-link"><i class="fas fa-shopping-bag"></i> Pesanan Saya</a>
+                            <a href="#" id="favorit-dropdown"><i class="fas fa-heart"></i> Favorit</a>
                             <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Keluar</a>
                         </div>
                     </div>
@@ -53,7 +56,10 @@
         </div>
     </header>
 
+    
 
+    <!-- judul awal  -->
+     
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -843,8 +849,8 @@
                             alt="Aji Praseetyo">
                     </div>
                     <h3>Aji Prasetyo</h3>
-                    <p class="member-role">programmer</p>
-                    <p class="member-bio">gtw</p>
+                    <p class="member-role">apa aja yang penting kerja</p>
+                    <p class="member-bio">apa aja yang penting kerja</p>
                     <div class="member-social">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
@@ -1209,6 +1215,7 @@
 
     <script src="js/home.js"></script>
     <script src="js/logiitc.js"></script>
+    <script src="js/funcition.js"></script>
 </body>
 
 </html>
