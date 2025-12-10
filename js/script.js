@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const validCredentials = [
                 { username: 'user', password: 'password' },
                 { username: 'admin', password: 'admin123' },
-                { username: 'demo@example.com', password: 'demo123' }
+                { username: 'admin@example.com', password: 'admin123' }
             ];
             
             // Cek apakah kredensial valid
