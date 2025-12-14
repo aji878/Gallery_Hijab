@@ -1281,3 +1281,280 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeProfile();
     updateFavoriteCount();
 });
+
+
+
+// Search functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('.search-box input');
+    const searchBtn = document.querySelector('.search-btn');
+    const searchSuggestions = document.querySelectorAll('.search-suggestions a');
+    
+    // Product data for search
+    const products = [
+        { name: 'Hijab Segi Empat', price: 40000, image: 'image/hijab segi 4.jpg', category: 'Hijab' },
+        { name: 'Hijab Pashmina', price: 55000, image: 'image/pashmina kaos.jpg', category: 'Hijab' },
+        { name: 'Hijab Instan', price: 65000, image: 'image/segitiga instan jersy.jpg', category: 'Hijab' },
+        { name: 'Hijab Bergo Maryam', price: 55000, image: 'image/bergo maryam.jpeg', category: 'Hijab' },
+        { name: 'Hijab Segitiga Paris', price: 55000, image: 'image/segitiga paris.jpeg', category: 'Hijab' },
+        { name: 'Gamis Set Hijab Rayon', price: 150000, image: 'image/gamis set hijab rayon.jpeg', category: 'Gamis' },
+        { name: 'Abaya Jumbo', price: 150000, image: 'image/abaya jumbo.jpeg', category: 'Gamis' },
+        { name: 'Rok Panjang', price: 120000, image: 'image/rok.jpeg', category: 'Rok' },
+        { name: 'Kaos Kaki Citra', price: 5000, image: 'image/kaos kaki.jpeg', category: 'Aksesoris' },
+        { name: 'Gamis Kaftan', price: 160000, image: 'image/gamis kaftan.jpeg', category: 'Gamis' }
+    ];
+    
+    // Handle search button click
+    searchBtn.addEventListener('click', function() {
+        performSearch();
+    });
+    
+    // Handle enter key in search input
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
+    // Handle search suggestions click
+    searchSuggestions.forEach(suggestion => {
+        suggestion.addEventListener('click', function(e) {
+            e.preventDefault();
+            searchInput.value = this.textContent;
+            performSearch();
+        });
+    });
+    
+    // Auto-suggest functionality
+    searchInput.addEventListener('input', function() {
+        const value = this.value.toLowerCase();
+        if (value.length > 2) {
+            showSearchSuggestions(value);
+        } else {
+            hideSearchSuggestions();
+        }
+    });
+    
+    // Search function
+    function performSearch() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        
+        if (searchTerm === '') {
+            alert('Silakan masukkan kata kunci pencarian');
+            return;
+        }
+        
+        // Filter products based on search term
+        const filteredProducts = products.filter(product => 
+            product.name.toLowerCase().includes(searchTerm) ||
+            product.category.toLowerCase().includes(searchTerm)
+        );
+        
+        if (filteredProducts.length > 0) {
+            // Show search results
+            showSearchResults(filteredProducts, searchTerm);
+        } else {
+            // Show no results message
+            showNoResults(searchTerm);
+        }
+    }
+    
+    // Show real-time search suggestions
+    function showSearchSuggestions(term) {
+        // Filter products for suggestions
+        const suggestions = products.filter(product => 
+            product.name.toLowerCase().includes(term)
+        ).slice(0, 5); // Limit to 5 suggestions
+        
+        if (suggestions.length > 0) {
+            // Create suggestions dropdown
+            let suggestionsHTML = '<div class="search-results active">';
+            
+            suggestions.forEach(product => {
+                suggestionsHTML += `
+                    <div class="search-result-item" onclick="selectSearchSuggestion('${product.name}')">
+                        <img src="${product.image}" alt="${product.name}" class="search-result-image">
+                        <div class="search-result-info">
+                            <h4>${highlightText(product.name, term)}</h4>
+                            <div class="search-result-price">Rp ${product.price.toLocaleString()}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            suggestionsHTML += '</div>';
+            
+            // Remove existing suggestions
+            const existingResults = document.querySelector('.search-results');
+            if (existingResults) {
+                existingResults.remove();
+            }
+            
+            // Add suggestions to DOM
+            const searchContainer = document.querySelector('.search-container');
+            searchContainer.insertAdjacentHTML('beforeend', suggestionsHTML);
+        }
+    }
+    
+    // Hide search suggestions
+    function hideSearchSuggestions() {
+        const existingResults = document.querySelector('.search-results');
+        if (existingResults) {
+            existingResults.remove();
+        }
+    }
+    
+    // Highlight matching text in search results
+    function highlightText(text, term) {
+        const regex = new RegExp(`(${term})`, 'gi');
+        return text.replace(regex, '<span style="color: var(--primary-color); font-weight: bold;">$1</span>');
+    }
+    
+    // Select search suggestion
+    window.selectSearchSuggestion = function(productName) {
+        searchInput.value = productName;
+        hideSearchSuggestions();
+        performSearch();
+    };
+    
+    // Show search results
+    function showSearchResults(products, searchTerm) {
+        // Scroll to products section
+        document.querySelector('.products').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+        
+        // Highlight search term in products
+        highlightProducts(products, searchTerm);
+        
+        // Add search term to recent searches
+        addToRecentSearches(searchTerm);
+    }
+    
+    // Highlight products in grid
+    function highlightProducts(products, searchTerm) {
+        const productCards = document.querySelectorAll('.product-card');
+        
+        productCards.forEach(card => {
+            const productName = card.querySelector('h3').textContent.toLowerCase();
+            if (productName.includes(searchTerm.toLowerCase())) {
+                card.style.boxShadow = '0 0 0 2px var(--primary-color), 0 4px 15px rgba(0, 0, 0, 0.1)';
+                card.style.transform = 'translateY(-5px)';
+                
+                // Scroll product into view with delay
+                setTimeout(() => {
+                    card.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 500);
+            } else {
+                card.style.boxShadow = '';
+                card.style.transform = '';
+            }
+        });
+    }
+    
+    // Show no results message
+    function showNoResults(searchTerm) {
+        // Create no results message
+        const noResultsHTML = `
+            <div class="no-results">
+                <i class="fas fa-search" style="font-size: 3rem; color: var(--border-color); margin-bottom: 15px;"></i>
+                <h3>Tidak ditemukan hasil untuk "${searchTerm}"</h3>
+                <p>Coba kata kunci lain atau lihat kategori di bawah ini:</p>
+                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                    ${['Hijab', 'Gamis', 'Rok', 'Aksesoris'].map(cat => `
+                        <a href="#" class="category-tag" onclick="searchByCategory('${cat}')" 
+                           style="padding: 8px 15px; background: var(--bg-light); border-radius: 20px; 
+                                  text-decoration: none; color: var(--text-dark);">
+                            ${cat}
+                        </a>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        
+        // Insert no results message
+        const productsContainer = document.querySelector('.products .container');
+        const existingNoResults = productsContainer.querySelector('.no-results');
+        if (existingNoResults) {
+            existingNoResults.remove();
+        }
+        
+        const productGrid = document.querySelector('.product-grid');
+        productsContainer.insertBefore(document.createElement('div'), productGrid)
+            .outerHTML = noResultsHTML;
+    }
+    
+    // Search by category
+    window.searchByCategory = function(category) {
+        searchInput.value = category;
+        performSearch();
+    };
+    
+    // Add to recent searches
+    function addToRecentSearches(searchTerm) {
+        let recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+        
+        // Remove if already exists
+        recentSearches = recentSearches.filter(term => term !== searchTerm);
+        
+        // Add to beginning
+        recentSearches.unshift(searchTerm);
+        
+        // Keep only last 5 searches
+        if (recentSearches.length > 5) {
+            recentSearches.pop();
+        }
+        
+        // Save to localStorage
+        localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+        
+        // Update recent searches display if exists
+        updateRecentSearchesDisplay();
+    }
+    
+    // Update recent searches display
+    function updateRecentSearchesDisplay() {
+        const recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+        const suggestionsContainer = document.querySelector('.search-suggestions');
+        
+        if (recentSearches.length > 0 && suggestionsContainer) {
+            // Add recent searches section
+            let recentHTML = '';
+            recentSearches.forEach(term => {
+                recentHTML += `<a href="#" onclick="searchRecent('${term}')">${term}</a>`;
+            });
+            
+            // Update or add recent searches
+            let recentSection = suggestionsContainer.querySelector('.recent-searches');
+            if (!recentSection) {
+                recentSection = document.createElement('div');
+                recentSection.className = 'recent-searches';
+                recentSection.innerHTML = `<span>Pencarian terakhir:</span>${recentHTML}`;
+                suggestionsContainer.appendChild(recentSection);
+            } else {
+                recentSection.innerHTML = `<span>Pencarian terakhir:</span>${recentHTML}`;
+            }
+        }
+    }
+    
+    // Search recent term
+    window.searchRecent = function(term) {
+        searchInput.value = term;
+        performSearch();
+    };
+    
+    // Initialize recent searches
+    updateRecentSearchesDisplay();
+    
+    // Close search results when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+            hideSearchSuggestions();
+        }
+    });
+});
+
