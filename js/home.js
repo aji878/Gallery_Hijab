@@ -1293,8 +1293,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Product data for search
     const products = [
         { name: 'Hijab Segi Empat', price: 40000, image: 'image/hijab segi 4.jpg', category: 'Hijab' },
-        { name: 'Hijab Pashmina', price: 55000, image: 'image/pashmina kaos.jpg', category: 'Hijab' },
-        { name: 'Hijab Instan', price: 65000, image: 'image/segitiga instan jersy.jpg', category: 'Hijab' },
+        { name: 'Hijab Pashmina', price: 55000, image: 'image/pashmina kaos.jpeg', category: 'Hijab' },
+        { name: 'Hijab Instan', price: 65000, image: 'image/segitiga instan jersy.jpeg', category: 'Hijab' },
         { name: 'Hijab Bergo Maryam', price: 55000, image: 'image/bergo maryam.jpeg', category: 'Hijab' },
         { name: 'Hijab Segitiga Paris', price: 55000, image: 'image/segitiga paris.jpeg', category: 'Hijab' },
         { name: 'Gamis Set Hijab Rayon', price: 150000, image: 'image/gamis set hijab rayon.jpeg', category: 'Gamis' },
