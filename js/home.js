@@ -1557,4 +1557,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+// ==================== PROFILE & ORDERS INTEGRATION ====================
 
+// Tunggu hingga DOM sepenuhnya dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    // Inisialisasi Profile dan Orders dari profileorder.js
+    if (typeof renderOrders === 'function') {
+        renderOrders();
+    }
+    
+    if (typeof updateProfileDisplay === 'function') {
+        updateProfileDisplay();
+    }
+    
+    // Setup photo upload dari profileorder.js
+    if (typeof setupPhotoUpload === 'function') {
+        setupPhotoUpload();
+    }
+    
+    // Event listener untuk link profil dan pesanan di dropdown
+    const profileLinks = document.querySelectorAll('.profile-link, [href="#"]:has(.fa-user)');
+    const ordersLinks = document.querySelectorAll('.orders-link, [href="#"]:has(.fa-shopping-bag)');
+    const favoriteLinks = document.querySelectorAll('.favorite-link, #favorit-dropdown');
+    
+    // Handle profil link
+    profileLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof openModal === 'function') {
+                openModal('profileModal');
+            } else {
+                // Fallback jika modal belum ada
+                alert('Modal profil akan ditampilkan');
+            }
+        });
+    });
+    
+    // Handle pesanan link
+    ordersLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof openModal === 'function') {
+                openModal('ordersModal');
+            } else {
+                // Fallback jika modal belum ada
+                alert('Modal pesanan akan ditampilkan');
+            }
+        });
+    });
+    
+    // Handle favorit link
+    favoriteLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Fitur favorit akan segera hadir!');
+        });
+    });
+    
+    // Update favorite count
+    updateFavoriteCount();
+});
+
+// Fungsi untuk update favorite count
+function updateFavoriteCount() {
+    const favorites = JSON.parse(localStorage.getItem('favoriteProducts')) || [];
+    const favoriteCount = favorites.length;
+    const favoriteCountElements = document.querySelectorAll('.favorite-count');
+    
+    favoriteCountElements.forEach(element => {
+        element.textContent = favoriteCount.toString().padStart(2, '0');
+    });
+}
+
+document.addEventListener('click', function(e) {
+    // Handle view order detail
+    if (e.target.closest('.view-order-detail')) {
+        e.preventDefault();
+        const orderId = e.target.closest('.view-order-detail').dataset.orderId;
+        alert(`Detail pesanan ${orderId}`);
+    }
+    
+    // Handle pay order
+    if (e.target.closest('.pay-order')) {
+        e.preventDefault();
+        const orderId = e.target.closest('.pay-order').dataset.orderId;
+        alert(`Membayar pesanan ${orderId}`);
+    }
+    
+    // Handle track order
+    if (e.target.closest('.track-order')) {
+        e.preventDefault();
+        const orderId = e.target.closest('.track-order').dataset.orderId;
+        alert(`Melacak pesanan ${orderId}`);
+    }
+});

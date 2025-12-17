@@ -257,26 +257,36 @@ function getStatusText(status) {
     return statusMap[status] || status;
 }
 
-// Fungsi untuk update tampilan profil
-function updateProfileDisplay() {
-    // Update profile info
-    document.getElementById('profileName').textContent = userProfile.name;
-    document.getElementById('profileEmail').textContent = userProfile.email;
-    document.getElementById('profilePhone').textContent = userProfile.phone;
-    document.getElementById('joinDate').textContent = userProfile.joinDate;
-    document.getElementById('profileImage').src = userProfile.photo;
-    
-    // Update form fields
-    document.getElementById('editName').value = userProfile.name;
-    document.getElementById('editEmail').value = userProfile.email;
-    document.getElementById('editPhone').value = userProfile.phone;
-    document.getElementById('editAddress').value = userProfile.address;
-    
-    // Update stats
-    document.getElementById('totalOrders').textContent = userProfile.stats.totalOrders;
-    document.getElementById('totalWishlist').textContent = userProfile.stats.wishlist;
-    document.getElementById('memberPoints').textContent = userProfile.stats.points.toLocaleString();
-    document.getElementById('successOrders').textContent = userProfile.stats.successOrders;
+// Fungsi untuk membuka modal
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.classList.add('no-scroll');
+        
+        // Jika membuka modal pesanan, render pesanan
+        if (modalId === 'ordersModal') {
+            renderOrders();
+        }
+        // Jika membuka modal profil, render profil
+        else if (modalId === 'profileModal') {
+            updateProfileDisplay();
+        }
+    }
+}
+
+// Fungsi untuk menutup modal
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
+}
+
+// Fungsi untuk mengubah foto profil
+function changeProfilePhoto() {
+    openModal('photoUploadModal');
 }
 
 // Setup photo upload functionality
@@ -287,13 +297,15 @@ function setupPhotoUpload() {
     const photoPreview = document.getElementById('photoPreview');
     const savePhotoBtn = document.getElementById('savePhotoBtn');
     
+    if (!uploadArea || !photoInput) return;
+    
     // Click upload area to trigger file input
     uploadArea.addEventListener('click', () => {
         photoInput.click();
     });
     
     // Browse button
-    document.getElementById('browsePhotoBtn').addEventListener('click', (e) => {
+    document.getElementById('browsePhotoBtn')?.addEventListener('click', (e) => {
         e.stopPropagation();
         photoInput.click();
     });
@@ -327,7 +339,7 @@ function setupPhotoUpload() {
     });
     
     // Remove photo
-    document.getElementById('removePhotoBtn').addEventListener('click', () => {
+    document.getElementById('removePhotoBtn')?.addEventListener('click', () => {
         photoPreview.src = '';
         previewArea.style.display = 'none';
         uploadArea.style.display = 'block';
@@ -336,141 +348,126 @@ function setupPhotoUpload() {
     });
     
     // Save photo
-    savePhotoBtn.addEventListener('click', () => {
+    savePhotoBtn?.addEventListener('click', () => {
         if (photoPreview.src) {
             userProfile.photo = photoPreview.src;
             document.getElementById('profileImage').src = photoPreview.src;
             alert('Foto profil berhasil diubah!');
             closeModal('photoUploadModal');
+            resetPhotoUpload();
         }
     });
     
-    // Close upload modal
-    document.getElementById('closeUploadModal').addEventListener('click', () => {
+    // Close upload modal buttons
+    document.getElementById('closeUploadModal')?.addEventListener('click', () => {
         closeModal('photoUploadModal');
-        // Reset upload area
+        resetPhotoUpload();
+    });
+    
+    document.getElementById('closeUploadModalBtn')?.addEventListener('click', () => {
+        closeModal('photoUploadModal');
+        resetPhotoUpload();
+    });
+    
+    // Function to reset photo upload
+    function resetPhotoUpload() {
         photoPreview.src = '';
         previewArea.style.display = 'none';
         uploadArea.style.display = 'block';
         savePhotoBtn.disabled = true;
         photoInput.value = '';
+    }
+}
+
+// Fungsi untuk update tampilan profil
+function updateProfileDisplay() {
+    // Update profile info
+    document.getElementById('profileName').textContent = userProfile.name;
+    document.getElementById('profileEmail').textContent = userProfile.email;
+    document.getElementById('profilePhone').textContent = userProfile.phone;
+    document.getElementById('joinDate').textContent = userProfile.joinDate;
+    
+    const profileImage = document.getElementById('profileImage');
+    if (profileImage) {
+        profileImage.src = userProfile.photo;
+    }
+    
+    // Update form fields
+    const editName = document.getElementById('editName');
+    const editEmail = document.getElementById('editEmail');
+    const editPhone = document.getElementById('editPhone');
+    const editAddress = document.getElementById('editAddress');
+    
+    if (editName) editName.value = userProfile.name;
+    if (editEmail) editEmail.value = userProfile.email;
+    if (editPhone) editPhone.value = userProfile.phone;
+    if (editAddress) editAddress.value = userProfile.address;
+    
+    // Update stats
+    const totalOrders = document.getElementById('totalOrders');
+    const totalWishlist = document.getElementById('totalWishlist');
+    const memberPoints = document.getElementById('memberPoints');
+    const successOrders = document.getElementById('successOrders');
+    
+    if (totalOrders) totalOrders.textContent = userProfile.stats.totalOrders;
+    if (totalWishlist) totalWishlist.textContent = userProfile.stats.wishlist;
+    if (memberPoints) memberPoints.textContent = userProfile.stats.points.toLocaleString();
+    if (successOrders) successOrders.textContent = userProfile.stats.successOrders;
+}
+
+// Event listener untuk tombol "Mulai Belanja"
+function setupStartShoppingButtons() {
+    // Tombol "Mulai Belanja" di modal pesanan kosong
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.empty-state .btn-primary')) {
+            const emptyState = e.target.closest('.empty-state');
+            if (emptyState) {
+                const modal = emptyState.closest('.modal');
+                if (modal) {
+                    const modalId = modal.id;
+                    closeModal(modalId);
+                }
+            }
+        }
     });
 }
 
-// Inisialisasi ketika DOM siap
+// Event listener untuk tombol "Batal" di profil
+function setupCancelButtons() {
+    // Tombol "Batal" di form profil (jika ada)
+    const cancelProfileEdit = document.getElementById('cancelProfileEdit');
+    if (cancelProfileEdit) {
+        cancelProfileEdit.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModal('profileModal');
+        });
+    }
+}
+
+// Inisialisasi semua fungsi
 document.addEventListener('DOMContentLoaded', function() {
     // Setup photo upload
     setupPhotoUpload();
     
-    // Event listener untuk tab orders
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
-            
-            // Remove active class from all tabs
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            // Add active class to current tab
-            this.classList.add('active');
-            document.getElementById(`tab-${tabId}`).classList.add('active');
-        });
-    });
+    // Setup tombol "Mulai Belanja"
+    setupStartShoppingButtons();
     
-    // Event listener untuk link di dropdown
-    document.querySelectorAll('.dropdown-menu a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (this.classList.contains('profile-link')) {
-                openModal('profileModal');
-            } else if (this.classList.contains('orders-link')) {
-                openModal('ordersModal');
-            } else if (this.classList.contains('favorite-link')) {
-                // Handle favorite link
-                alert('Fitur favorit akan segera hadir!');
-            }
-        });
+    // Setup tombol "Batal"
+    setupCancelButtons();
+    
+    // Event listener untuk tombol "Ubah Foto"
+    document.getElementById('changePhotoBtn')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        changeProfilePhoto();
     });
     
     // Close modal buttons
-    document.getElementById('closeOrdersModal')?.addEventListener('click', () => closeModal('ordersModal'));
     document.getElementById('closeProfileModal')?.addEventListener('click', () => closeModal('profileModal'));
-    document.getElementById('closeUploadModal')?.addEventListener('click', () => closeModal('photoUploadModal'));
-    
-    // Change photo button
-    document.getElementById('changePhotoBtn')?.addEventListener('click', () => openModal('photoUploadModal'));
-    
-    // Save profile button
-    document.getElementById('saveProfileBtn')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('editName').value.trim();
-        const email = document.getElementById('editEmail').value.trim();
-        const phone = document.getElementById('editPhone').value.trim();
-        const address = document.getElementById('editAddress').value.trim();
-        const currentPassword = document.getElementById('currentPassword').value;
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        
-        // Basic validation
-        if (!name) {
-            alert('Nama lengkap harus diisi!');
-            return;
-        }
-        
-        if (!email) {
-            alert('Email harus diisi!');
-            return;
-        }
-        
-        if (!phone) {
-            alert('Nomor WhatsApp harus diisi!');
-            return;
-        }
-        
-        // Update profile
-        userProfile.name = name;
-        userProfile.email = email;
-        userProfile.phone = phone;
-        userProfile.address = address;
-        
-        // Handle password change
-        if (currentPassword || newPassword || confirmPassword) {
-            if (!currentPassword) {
-                alert('Harap masukkan password saat ini!');
-                return;
-            }
-            
-            if (!newPassword || !confirmPassword) {
-                alert('Harap masukkan password baru dan konfirmasinya!');
-                return;
-            }
-            
-            if (newPassword.length < 8) {
-                alert('Password minimal 8 karakter!');
-                return;
-            }
-            
-            if (newPassword !== confirmPassword) {
-                alert('Konfirmasi password tidak cocok!');
-                return;
-            }
-            
-            // In real app, verify current password with server
-            alert('Password berhasil diubah!');
-            
-            // Clear password fields
-            document.getElementById('currentPassword').value = '';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmPassword').value = '';
-        }
-        
-        // Update display and show success message
-        updateProfileDisplay();
-        alert('Profil berhasil diperbarui!');
-    });
+    document.getElementById('closeOrdersModal')?.addEventListener('click', () => closeModal('ordersModal'));
+    document.getElementById('closeOrderDetail')?.addEventListener('click', () => closeModal('orderDetailModal'));
+    document.getElementById('closeOrderDetailBtn')?.addEventListener('click', () => closeModal('orderDetailModal'));
+    document.getElementById('closeCancelModal')?.addEventListener('click', () => closeModal('cancelOrderModal'));
+    document.getElementById('cancelCancel')?.addEventListener('click', () => closeModal('cancelOrderModal'));
     
     // Close modals when clicking outside
     document.querySelectorAll('.modal').forEach(modal => {
@@ -491,22 +488,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Event delegation for order actions
+    // Event delegation untuk order actions
     document.addEventListener('click', function(e) {
         // View order detail
         if (e.target.closest('.view-order-detail')) {
+            e.preventDefault();
             const orderId = e.target.closest('.view-order-detail').getAttribute('data-order-id');
             alert(`Detail pesanan ${orderId} akan ditampilkan`);
+            // Anda bisa tambahkan fungsi untuk menampilkan detail pesanan di sini
         }
         
         // Pay order
         if (e.target.closest('.pay-order')) {
+            e.preventDefault();
             const orderId = e.target.closest('.pay-order').getAttribute('data-order-id');
             alert(`Membuka halaman pembayaran untuk pesanan ${orderId}`);
         }
         
         // Track order
         if (e.target.closest('.track-order')) {
+            e.preventDefault();
             const orderId = e.target.closest('.track-order').getAttribute('data-order-id');
             alert(`Membuka halaman tracking untuk pesanan ${orderId}`);
         }

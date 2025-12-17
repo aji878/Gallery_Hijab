@@ -18,7 +18,7 @@
             <!-- Header Top: Logo, Navigation, User Actions -->
             <div class="header-top">
                 <div class="logo">
-                    <h1><i class="fas fa-scarf">Gallery hijab Semuli Jaya </i></h1>
+                    <h1><i class="fas fa-scarf">Gallery hijab </i></h1>
                 </div>
                 <nav class="nav">
                     <ul>
@@ -39,8 +39,8 @@
                         <span class="favorite-count">0</span>
                     </a>
                     <div class="user-profile">
-                        <img src="https://ui-avatars.com/api/?name=User&background=6e8efb&color=fff" alt="Galeri hijab">
-                        <span>galeri hijab</span>
+                        <img src="https://ui-avatars.com/api/?name=User&background=6e8efb&color=fff" alt="User">
+                        <span>User</span>
                         <div class="dropdown-menu">
                             <a href="#" class="profile-link"><i class="fas fa-user"></i> Profil Saya</a>
                             <a href="#" class="orders-link"><i class="fas fa-shopping-bag"></i> Pesanan Saya</a>
@@ -48,6 +48,7 @@
                             <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Keluar</a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -64,11 +65,12 @@
         </section>
     </header>
 
-    
+
 
 
 
     <!-- judul awal  -->
+     
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -819,11 +821,11 @@
 
             <div class="team-member">
                 <div class="member-photo">
-                    <img src="image/" alt="Aji Praseetyo">
+                    <img src="image/aji.jpeg" alt="Aji Praseetyo">
                 </div>
                 <h3>Aji Prasetyo</h3>
-                <p class="member-role">apa aja yang penting kerja</p>
-                <p class="member-bio">apa aja yang penting kerja</p>
+                <p class="member-role">web</p>
+                <p class="member-bio">orang dengan 1000 mimpi yg akan tercapai di kemudian hari</p>
                 <div class="member-social">
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-whatsapp"></i></a>
@@ -838,6 +840,34 @@
                 <h3>rini jovita</h3>
                 <p class="member-role">desain</p>
                 <p class="member-bio">wanita baik hati alim dan rajin menabung</p>
+                <div class="member-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-photo">
+                    <img src="image/alya.jpeg" alt="Alya Dwi Putri">
+                </div>
+                <h3>Alya Dwi Putri</h3>
+                <p class="member-role"></p>
+                <p class="member-bio"></p>
+                <div class="member-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-photo">
+                    <img src="image/" alt="Alsyara preciska aisyah">
+                </div>
+                <h3>Alsyara preciska aisyah</h3>
+                <p class="member-role"></p>
+                <p class="member-bio"></p>
                 <div class="member-social">
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-whatsapp"></i></a>
@@ -861,15 +891,7 @@
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Kategori</h4>
-                    <ul>
-                        <li><a href="#">Hijab Segi Empat</a></li>
-                        <li><a href="#">Hijab Pashmina</a></li>
-                        <li><a href="#">Hijab Instan</a></li>
-                        <li><a href="#">Hijab Berpayet</a></li>
-                    </ul>
-                </div>
+
                 <div class="footer-section">
                     <h4>Kontak</h4>
                     <p><i class="fas fa-map-marker-alt"></i> Jl. semuli jaya</p>
@@ -1186,221 +1208,250 @@
     </div>
 
     <!-- My Orders Modal -->
-<div id="ordersModal" class="modal">
-    <div class="modal-content" style="max-width: 900px;">
-        <h3>Pesanan Saya</h3>
-        <div class="orders-tabs">
-            <div class="tab-buttons">
-                <button class="tab-btn active" data-tab="all">Semua</button>
-                <button class="tab-btn" data-tab="pending">Menunggu Pembayaran</button>
-                <button class="tab-btn" data-tab="processing">Diproses</button>
-                <button class="tab-btn" data-tab="shipping">Dikirim</button>
-                <button class="tab-btn" data-tab="completed">Selesai</button>
-                <button class="tab-btn" data-tab="cancelled">Dibatalkan</button>
-            </div>
-            
-            <div class="tab-content active" id="tab-all">
-                <div class="order-summary" id="allOrdersList">
-                    <!-- Order items will be loaded here -->
+    <div id="ordersModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <h3>Pesanan Saya</h3>
+            <div class="orders-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="all">Semua</button>
+                    <button class="tab-btn" data-tab="pending">Menunggu Pembayaran</button>
+                    <button class="tab-btn" data-tab="processing">Diproses</button>
+                    <button class="tab-btn" data-tab="shipping">Dikirim</button>
+                    <button class="tab-btn" data-tab="completed">Selesai</button>
+                    <button class="tab-btn" data-tab="cancelled">Dibatalkan</button>
+                </div>
+
+                <div class="tab-content active" id="tab-all">
+                    <div class="order-summary" id="allOrdersList">
+                        <!-- Order items will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-pending">
+                    <div class="order-summary" id="pendingOrdersList">
+                        <!-- Pending orders -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-processing">
+                    <div class="order-summary" id="processingOrdersList">
+                        <!-- Processing orders -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-shipping">
+                    <div class="order-summary" id="shippingOrdersList">
+                        <!-- Shipping orders -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-completed">
+                    <div class="order-summary" id="completedOrdersList">
+                        <!-- Completed orders -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-cancelled">
+                    <div class="order-summary" id="cancelledOrdersList">
+                        <!-- Cancelled orders -->
+                    </div>
                 </div>
             </div>
-            
-            <div class="tab-content" id="tab-pending">
-                <div class="order-summary" id="pendingOrdersList">
-                    <!-- Pending orders -->
-                </div>
+
+            <div class="modal-actions">
+                <button id="closeOrdersModal" class="btn-secondary">Tutup</button>
             </div>
-            
-            <div class="tab-content" id="tab-processing">
-                <div class="order-summary" id="processingOrdersList">
-                    <!-- Processing orders -->
-                </div>
-            </div>
-            
-            <div class="tab-content" id="tab-shipping">
-                <div class="order-summary" id="shippingOrdersList">
-                    <!-- Shipping orders -->
-                </div>
-            </div>
-            
-            <div class="tab-content" id="tab-completed">
-                <div class="order-summary" id="completedOrdersList">
-                    <!-- Completed orders -->
-                </div>
-            </div>
-            
-            <div class="tab-content" id="tab-cancelled">
-                <div class="order-summary" id="cancelledOrdersList">
-                    <!-- Cancelled orders -->
-                </div>
-            </div>
-        </div>
-        
-        <div class="modal-actions">
-            <button id="closeOrdersModal" class="btn-secondary">Tutup</button>
         </div>
     </div>
-</div>
 
-<!-- My Profile Modal -->
-<div id="profileModal" class="modal">
-    <div class="modal-content" style="max-width: 700px;">
-        <h3>Profil Saya</h3>
-        <div class="profile-content">
-            <div class="profile-header">
-                <div class="profile-photo">
-                    <img src="https://ui-avatars.com/api/?name=Galeri+Hijab&background=6e8efb&color=fff&size=120" 
-                         alt="Profile" id="profileImage">
-                    <button class="change-photo-btn" id="changePhotoBtn">
-                        <i class="fas fa-camera"></i> Ganti Foto
-                    </button>
+    <!-- My Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <h3>Profil Saya</h3>
+            <div class="profile-content">
+                <div class="profile-header">
+                    <div class="profile-photo">
+                        <img src="https://ui-avatars.com/api/?name=Galeri+Hijab&background=6e8efb&color=fff&size=120"
+                            alt="Profile" id="profileImage">
+                        <button class="change-photo-btn" id="changePhotoBtn">
+                            <i class="fas fa-camera"></i> Ganti Foto
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h4 id="profileName">Galeri Hijab</h4>
+                        <p><i class="fas fa-envelope"></i> <span id="profileEmail">galerihijab@gmail.com</span></p>
+                        <p><i class="fas fa-phone"></i> <span id="profilePhone">+62 812-3456-7890</span></p>
+                        <p><i class="fas fa-calendar-alt"></i> Bergabung sejak: <span id="joinDate">Januari 2024</span>
+                        </p>
+                    </div>
                 </div>
-                <div class="profile-info">
-                    <h4 id="profileName">Galeri Hijab</h4>
-                    <p><i class="fas fa-envelope"></i> <span id="profileEmail">galerihijab@gmail.com</span></p>
-                    <p><i class="fas fa-phone"></i> <span id="profilePhone">+62 812-3456-7890</span></p>
-                    <p><i class="fas fa-calendar-alt"></i> Bergabung sejak: <span id="joinDate">Januari 2024</span></p>
+
+                <form id="profileForm">
+                    <div class="form-section">
+                        <h4><i class="fas fa-user-edit"></i> Edit Profil</h4>
+                        <div class="form-group">
+                            <label for="editName">Nama Lengkap:</label>
+                            <input type="text" id="editName" placeholder="Masukkan nama lengkap" value="nama user">
+                        </div>
+                        <div class="form-group">
+                            <label for="editEmail">Email:</label>
+                            <input type="email" id="editEmail" placeholder="nama@email.com"
+                                value="galerihijab@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPhone">No. WhatsApp:</label>
+                            <input type="tel" id="editPhone" placeholder="081234567890" value="081234567890">
+                        </div>
+                        <div class="form-group">
+                            <label for="editAddress">Alamat Lengkap:</label>
+                            <textarea id="editAddress" rows="3"
+                                placeholder="Alamat lengkap pengiriman">Jl. Semuli Jaya No. 123, RT/RW Semuli Jaya, Lampung Utara</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-lock"></i> Keamanan Akun</h4>
+                        <div class="form-group">
+                            <label for="currentPassword">Password Saat Ini:</label>
+                            <input type="password" id="currentPassword" placeholder="Masukkan password saat ini">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">Password Baru:</label>
+                            <input type="password" id="newPassword" placeholder="Minimal 8 karakter">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Konfirmasi Password:</label>
+                            <input type="password" id="confirmPassword" placeholder="Ulangi password baru">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4><i class="fas fa-bell"></i> Notifikasi</h4>
+                        <div class="notification-settings">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="notifOrder" checked>
+                                <span>Notifikasi status pesanan</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="notifPromo" checked>
+                                <span>Promo dan diskon</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="notifNews" checked>
+                                <span>Berita dan artikel</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="notifEmail">
+                                <span>Notifikasi via email</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="notifWhatsapp" checked>
+                                <span>Notifikasi via WhatsApp</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalOrders">0</div>
+                            <div class="stat-label">Total Pesanan</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalWishlist">0</div>
+                            <div class="stat-label">Wishlist</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-star"></i></div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="memberPoints">0</div>
+                            <div class="stat-label">Poin Member</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="successOrders">0</div>
+                            <div class="stat-label">Pesanan Sukses</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <form id="profileForm">
-                <div class="form-section">
-                    <h4><i class="fas fa-user-edit"></i> Edit Profil</h4>
-                    <div class="form-group">
-                        <label for="editName">Nama Lengkap:</label>
-                        <input type="text" id="editName" placeholder="Masukkan nama lengkap" value="Galeri Hijab">
-                    </div>
-                    <div class="form-group">
-                        <label for="editEmail">Email:</label>
-                        <input type="email" id="editEmail" placeholder="nama@email.com" value="galerihijab@gmail.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="editPhone">No. WhatsApp:</label>
-                        <input type="tel" id="editPhone" placeholder="081234567890" value="081234567890">
-                    </div>
-                    <div class="form-group">
-                        <label for="editAddress">Alamat Lengkap:</label>
-                        <textarea id="editAddress" rows="3" placeholder="Alamat lengkap pengiriman">Jl. Semuli Jaya No. 123, RT/RW Semuli Jaya, Lampung Utara</textarea>
-                    </div>
-                </div>
-                
-                <div class="form-section">
-                    <h4><i class="fas fa-lock"></i> Keamanan Akun</h4>
-                    <div class="form-group">
-                        <label for="currentPassword">Password Saat Ini:</label>
-                        <input type="password" id="currentPassword" placeholder="Masukkan password saat ini">
-                    </div>
-                    <div class="form-group">
-                        <label for="newPassword">Password Baru:</label>
-                        <input type="password" id="newPassword" placeholder="Minimal 8 karakter">
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmPassword">Konfirmasi Password:</label>
-                        <input type="password" id="confirmPassword" placeholder="Ulangi password baru">
-                    </div>
-                </div>
-                
-                <div class="form-section">
-                    <h4><i class="fas fa-bell"></i> Notifikasi</h4>
-                    <div class="notification-settings">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="notifOrder" checked>
-                            <span>Notifikasi status pesanan</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="notifPromo" checked>
-                            <span>Promo dan diskon</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="notifNews" checked>
-                            <span>Berita dan artikel</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="notifEmail">
-                            <span>Notifikasi via email</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="notifWhatsapp" checked>
-                            <span>Notifikasi via WhatsApp</span>
-                        </label>
-                    </div>
-                </div>
-            </form>
-            
-            <div class="profile-stats">
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="totalOrders">0</div>
-                        <div class="stat-label">Total Pesanan</div>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fas fa-heart"></i></div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="totalWishlist">0</div>
-                        <div class="stat-label">Wishlist</div>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fas fa-star"></i></div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="memberPoints">0</div>
-                        <div class="stat-label">Poin Member</div>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="successOrders">0</div>
-                        <div class="stat-label">Pesanan Sukses</div>
-                    </div>
-                </div>
+
+            <div class="modal-actions">
+                <button id="saveProfileBtn" class="btn-primary">Simpan Perubahan</button>
+                <button id="closeProfileModal" class="btn-secondary">Batal</button>
             </div>
-        </div>
-        
-        <div class="modal-actions">
-            <button id="saveProfileBtn" class="btn-primary">Simpan Perubahan</button>
-            <button id="closeProfileModal" class="btn-secondary">Batal</button>
         </div>
     </div>
-</div>
-
-<!-- Photo Upload Modal -->
-<div id="photoUploadModal" class="modal">
-    <div class="modal-content" style="max-width: 500px;">
-        <h3>Ganti Foto Profil</h3>
-        <div class="upload-content">
-            <div class="upload-area" id="uploadArea">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>Seret & lepas foto di sini atau</p>
-                <button id="browsePhotoBtn" class="btn-secondary">Pilih File</button>
-                <input type="file" id="photoInput" accept="image/*" style="display: none;">
-                <p class="upload-hint">Maksimum 2MB (JPG, PNG, GIF)</p>
-            </div>
-            <div class="preview-area" id="previewArea" style="display: none;">
-                <img id="photoPreview" src="" alt="Preview">
-                <div class="preview-actions">
-                    <button id="cropPhotoBtn" class="btn-small">
-                        <i class="fas fa-crop"></i> Potong
-                    </button>
-                    <button id="removePhotoBtn" class="btn-small btn-danger">
-                        <i class="fas fa-trash"></i> Hapus
-                    </button>
+    <!-- Photo Upload Modal -->
+    <div id="photoUploadModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <h3>Ubah Foto Profil</h3>
+            <div class="upload-content">
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop foto atau klik untuk memilih</p>
+                    <button type="button" id="browsePhotoBtn" class="btn-secondary">Pilih File</button>
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
                 </div>
+                <div class="preview-area" id="previewArea" style="display: none;">
+                    <img id="photoPreview" src="" alt="Preview">
+                    <div class="preview-actions">
+                        <button id="removePhotoBtn" class="btn-secondary">Hapus</button>
+                        <button id="savePhotoBtn" class="btn-primary" disabled>Simpan</button>
+                    </div>
+                </div>
+                <p class="upload-hint">Ukuran maksimal: 2MB. Format: JPG, PNG</p>
             </div>
-        </div>
-        <div class="modal-actions">
-            <button id="savePhotoBtn" class="btn-primary" disabled>Simpan Foto</button>
-            <button id="closeUploadModal" class="btn-secondary">Batal</button>
+            <div class="modal-actions">
+                <button id="closeUploadModal" class="btn-secondary">Batal</button>
+            </div>
         </div>
     </div>
-</div>
 
-    <script src="js/home.js"></script>
+    <!-- Order Detail Modal -->
+    <div id="orderDetailModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <h3>Detail Pesanan</h3>
+            <div id="orderDetailContent" class="order-detail-content">
+                <!-- Order details will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button id="closeOrderDetail" class="btn-secondary">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Order Modal -->
+    <div id="cancelOrderModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <h3>Batalkan Pesanan</h3>
+            <p>Apakah Anda yakin ingin membatalkan pesanan ini?</p>
+            <div class="cancel-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Pembatalan pesanan tidak dapat dibatalkan kembali.</p>
+            </div>
+            <div class="form-group">
+                <label for="cancelReason">Alasan Pembatalan:</label>
+                <textarea id="cancelReason" rows="3" placeholder="Masukkan alasan pembatalan"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="confirmCancel" class="btn-danger">Ya, Batalkan</button>
+                <button id="cancelCancel" class="btn-secondary">Tidak</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/kofi.js"></script>
     <script src="js/logiitc.js"></script>
     <script src="js/funcition.js"></script>
     <script src="js/profilorder.js"></script>
+    
 </body>
-
 </html>
